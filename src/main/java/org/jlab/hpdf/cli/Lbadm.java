@@ -127,7 +127,7 @@ public class Lbadm {
         logger.debug("De-Registering a worker");
         logger.debug("  Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + "using address: " + lbman.getAddrString());
         try{
-            lbman.deregisteWorker();
+            lbman.deregisterWorker();
             logger.debug("Success");
         }
         catch(E2sarNativeException e){

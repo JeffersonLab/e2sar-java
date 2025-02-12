@@ -315,7 +315,7 @@ JNIEXPORT void JNICALL Java_org_jlab_hpdf_LbManager_registerWorker
     }
   }
 
-JNIEXPORT void JNICALL Java_org_jlab_hpdf_LbManager_deregisteWorker
+JNIEXPORT void JNICALL Java_org_jlab_hpdf_LbManager_deregisterWorker
   (JNIEnv *env, jobject jLbManager, jlong jNativeLbPointer){
 
     e2sar::LBManager* lbman = reinterpret_cast<e2sar::LBManager*>(jNativeLbPointer);

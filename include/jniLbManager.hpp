@@ -11,6 +11,7 @@ const std::string nativeLbField = "nativeLbManager";
 const std::string javaWorkerStatusClass = "org/jlab/hpdf/messages/WorkerStatus";
 const std::string javaLBStatusClass = "org/jlab/hpdf/messages/LBStatus";
 const std::string javaLBOverviewClass = "org/jlab/hpdf/messages/LBOverview";
+
 /*
  * Class:     org_jlab_hpdf_LbManager
  * Method:    initLbManager
@@ -117,10 +118,10 @@ JNIEXPORT void JNICALL Java_org_jlab_hpdf_LbManager_registerWorker
 
 /*
  * Class:     org_jlab_hpdf_LbManager
- * Method:    deregisteWorker
+ * Method:    deregisterWorker
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_org_jlab_hpdf_LbManager_deregisteWorker
+JNIEXPORT void JNICALL Java_org_jlab_hpdf_LbManager_deregisterWorker
   (JNIEnv *, jobject, jlong);
 
 /*
