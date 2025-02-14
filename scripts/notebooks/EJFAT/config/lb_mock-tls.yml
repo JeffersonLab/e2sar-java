@@ -1,4 +1,5 @@
 lb:
+  allow_private: true
   id: 0
   ipv4:
     - "192.0.2.1"
