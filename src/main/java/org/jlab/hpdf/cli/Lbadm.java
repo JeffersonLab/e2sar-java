@@ -54,7 +54,7 @@ public class Lbadm {
         int fpgaLbid;
         if(!suppress){
             logger.debug("Reserving a new load balancer");
-            logger.debug("   Contacting: " + lbman.getEjfatURI().toString() + " using address: " + lbman.getAddrString());
+            logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.ADMIN) + " using address: " + lbman.getAddrString());
             logger.debug("   LB Name: " + lbName);
             logger.debug("   Allowed senders: ");
             for(String sender : senders){
@@ -239,7 +239,7 @@ public class Lbadm {
 
     public static void getVersion(LbManager lbman){
         logger.debug("Getting load balancer version");
-        logger.debug("   Contacting: " + lbman.getEjfatURI().toString() + " using address: " + lbman.getAddrString());
+        logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.ADMIN) + " using address: " + lbman.getAddrString());
 
         try{
             List<String> versionList = lbman.version();

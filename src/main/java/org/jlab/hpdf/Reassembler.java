@@ -21,19 +21,19 @@ public class Reassembler {
     private long nativeReassembler;
     private HashSet<ByteBuffer> allocatedBuffers;
 
-    private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort,  List<Integer> cpuCoreList, ReassemblerFlags rFlags);
+    private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort,  List<Integer> cpuCoreList, ReassemblerFlags rFlags) throws E2sarNativeException;
 
     private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort,  List<Integer> cpuCoreList, String iniFile) throws E2sarNativeException;
 
-    private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort,  List<Integer> cpuCoreList);
+    private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort,  List<Integer> cpuCoreList) throws E2sarNativeException;
 
-    private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort, long numReceiveThreads, ReassemblerFlags rFlags);
+    private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort, long numReceiveThreads, ReassemblerFlags rFlags) throws E2sarNativeException;
 
     private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort, long numReceiveThreads, String iniFile) throws E2sarNativeException;
 
-    private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort, long numReceiveThreads);
+    private native long initReassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort, long numReceiveThreads) throws E2sarNativeException;
 
-    public Reassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort,  List<Integer> cpuCoreList, ReassemblerFlags rFlags){
+    public Reassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort,  List<Integer> cpuCoreList, ReassemblerFlags rFlags) throws E2sarNativeException{
         nativeReassembler = initReassembler(dpUri, ipAddress, startingPort, cpuCoreList, rFlags);
         allocatedBuffers = new HashSet<>();
     }
@@ -48,7 +48,7 @@ public class Reassembler {
         allocatedBuffers = new HashSet<>();
     }
 
-    public Reassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort, int numReceiveThreads, ReassemblerFlags rFlags){
+    public Reassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort, int numReceiveThreads, ReassemblerFlags rFlags) throws E2sarNativeException{
         nativeReassembler = initReassembler(dpUri, ipAddress, startingPort, numReceiveThreads, rFlags);
         allocatedBuffers = new HashSet<>();
     }
@@ -58,7 +58,7 @@ public class Reassembler {
         allocatedBuffers = new HashSet<>();
     }
 
-    public Reassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort, int numReceiveThreads){
+    public Reassembler(EjfatURI dpUri, InetAddress ipAddress, int startingPort, int numReceiveThreads) throws E2sarNativeException{
         nativeReassembler = initReassembler(dpUri, ipAddress, startingPort, numReceiveThreads);
         allocatedBuffers = new HashSet<>();
     }

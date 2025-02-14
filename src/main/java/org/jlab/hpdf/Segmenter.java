@@ -15,13 +15,13 @@ public class Segmenter{
     
     private long nativeSegmenter;
 
-    private native long initSegmentor(EjfatURI dpUri, int dataId, long eventSrcId, SegmenterFlags sFlags);
+    private native long initSegmentor(EjfatURI dpUri, int dataId, long eventSrcId, SegmenterFlags sFlags) throws E2sarNativeException;
 
     private native long initSegmentor(EjfatURI dpUri, int dataId, long eventSrcId, String iniFile) throws E2sarNativeException;
 
-    private native long initSegmentor(EjfatURI dpUri, int dataId, long eventSrcId);
+    private native long initSegmentor(EjfatURI dpUri, int dataId, long eventSrcId) throws E2sarNativeException;
 
-    public Segmenter(EjfatURI dpUri, int dataId, long eventSrcId, SegmenterFlags sFlags){
+    public Segmenter(EjfatURI dpUri, int dataId, long eventSrcId, SegmenterFlags sFlags) throws E2sarNativeException{
         nativeSegmenter = initSegmentor(dpUri, dataId, eventSrcId, sFlags);
     }
 
@@ -29,7 +29,7 @@ public class Segmenter{
         nativeSegmenter = initSegmentor(dpUri, dataId, eventSrcId, iniFile);
     }
 
-    public Segmenter(EjfatURI dpUri, int dataId, long eventSrcId){
+    public Segmenter(EjfatURI dpUri, int dataId, long eventSrcId) throws E2sarNativeException{
         nativeSegmenter = initSegmentor(dpUri, dataId, eventSrcId);
     }
 

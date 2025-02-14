@@ -29,8 +29,7 @@ public class E2sarSyncTest{
         System.out.println("DPSyncTest1: test sync thread sending 10 sync frames (once a second for 10 seconds)");
         EjfatURI uri = null;
         try{
-            uri = EjfatURI.createInstance("ejfat://useless@192.168.100.1:9876/lb/1?sync=10.251.100.122:12345&data=10.250.100.123");
-            System.out.println("Running data test for 10 seconds against sync" + uri.getSyncAddr().toString());
+            uri = EjfatURI.createInstance("ejfats://useless@192.168.100.1:9876/lb/1?sync=10.251.100.122:12345&data=10.250.100.123");
         }
         catch(E2sarNativeException e){
             e.printStackTrace();

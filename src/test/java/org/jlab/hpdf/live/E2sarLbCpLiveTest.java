@@ -17,6 +17,10 @@ import java.util.ArrayList;
  * these tests necessarily depend on EJFAT_URI environment variable setting as information about live LBCP can't be baked into the test itself
  */
 public class E2sarLbCpLiveTest {
+
+    static{
+        System.loadLibrary("jnie2sar");
+    }
     
     @Test
     void LBMTest1(){
@@ -388,7 +392,7 @@ public class E2sarLbCpLiveTest {
             assert(overview.status.senderAddresses.size() == 2);
             assert(overview.status.senderAddresses.get(0).equals("192.168.20.1"));
             assert(overview.status.workers.size() == 1);
-            assert(overview.status.workers.get(0).name.equals("192.168.20.1"));
+            assert(overview.status.workers.get(0).name.equals("my_node"));
             assert(Math.abs(overview.status.workers.get(0).fillPercent - 0.8) < deltaD);
             assert(Math.abs(overview.status.workers.get(0).controlSignal - 1.0) < deltaD);
             
@@ -402,7 +406,7 @@ public class E2sarLbCpLiveTest {
 
         }
 
-        // call free - this will correctly use the admin token (even though instance token
+        // call free - this will correctly use the admin token even though instance token
         // is added by reserve call and updated URI inside with LB ID added to it
         try {
             lbman.freeLB();

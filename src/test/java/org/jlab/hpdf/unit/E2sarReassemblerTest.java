@@ -57,7 +57,13 @@ public class E2sarReassemblerTest {
         int dataId = 0x0505;
         long eventSrcId = 0x11223344;
 
-        Segmenter seg = new Segmenter(segUri, dataId, eventSrcId, sflags);
+        Segmenter seg = null;
+        try {
+            seg = new Segmenter(segUri, dataId, eventSrcId, sflags);
+        } catch (E2sarNativeException e) {
+            e.printStackTrace();
+            fail();
+        }
 
         // create reassembler with no control plane
         ReassemblerFlags rflags = new ReassemblerFlags();
@@ -67,7 +73,13 @@ public class E2sarReassemblerTest {
 
         InetAddress inetAddress = InetAddress.getLoopbackAddress();
         int listenPort = 10000;
-        Reassembler reas = new Reassembler(reasUri, inetAddress, listenPort, 1, rflags);
+        Reassembler reas = null;
+        try {
+            reas = new Reassembler(reasUri, inetAddress, listenPort, 1, rflags);
+        } catch (E2sarNativeException e) {
+            e.printStackTrace();
+            fail();
+        }
 
         System.out.println("This reassembler has " + reas.getNumRecvThreads() + " receive threads and is listening on ports " + reas.getRecvPorts().get(0) + ":" +
             reas.getRecvPorts().get(1) + " using portRange " + reas.getPortRange());
@@ -190,7 +202,13 @@ public class E2sarReassemblerTest {
         int dataId = 0x0505;
         long eventSrcId = 0x11223344;
 
-        Segmenter seg = new Segmenter(segUri, dataId, eventSrcId, sflags);
+        Segmenter seg = null;
+        try {
+            seg = new Segmenter(segUri, dataId, eventSrcId, sflags);
+        } catch (E2sarNativeException e) {
+            e.printStackTrace();
+            fail();
+        }
 
         // create reassembler with no control plane
         ReassemblerFlags rflags = new ReassemblerFlags();
@@ -200,7 +218,13 @@ public class E2sarReassemblerTest {
 
         InetAddress inetAddress = InetAddress.getLoopbackAddress();
         int listenPort = 10000;
-        Reassembler reas = new Reassembler(reasUri, inetAddress, listenPort, 1, rflags);
+        Reassembler reas = null;
+        try {
+            reas = new Reassembler(reasUri, inetAddress, listenPort, 1, rflags);
+        } catch (E2sarNativeException e) {
+            e.printStackTrace();
+            fail();
+        }
 
         System.out.println("This reassembler has " + reas.getNumRecvThreads() + " receive threads and is listening on ports " + reas.getRecvPorts().get(0) + ":" +
             reas.getRecvPorts().get(1) + " using portRange " + reas.getPortRange());
@@ -318,7 +342,13 @@ public class E2sarReassemblerTest {
         int listenPort = 19522;
 
         // one thread
-        Reassembler reas = new Reassembler(reasUri, inetAddress, listenPort, 1, rflags);
+        Reassembler reas = null;
+        try {
+            reas = new Reassembler(reasUri, inetAddress, listenPort, 1, rflags);
+        } catch (E2sarNativeException e) {
+            e.printStackTrace();
+            fail();
+        }
         System.out.println("This reassembler has " + reas.getNumRecvThreads() + " receive threads and is listening on ports " + reas.getRecvPorts().get(0) + ":" +
             reas.getRecvPorts().get(1) + " using portRange " + reas.getPortRange());
         assert(reas.getNumRecvThreads() == 1);
@@ -328,7 +358,12 @@ public class E2sarReassemblerTest {
         reas.free();
 
         // 4 thread
-        reas = new Reassembler(reasUri, inetAddress, listenPort, 4, rflags);
+        try {
+           reas = new Reassembler(reasUri, inetAddress, listenPort, 4, rflags);
+        } catch (E2sarNativeException e) {
+            e.printStackTrace();
+            fail();
+        }
         System.out.println("This reassembler has " + reas.getNumRecvThreads() + " receive threads and is listening on ports " + reas.getRecvPorts().get(0) + ":" +
             reas.getRecvPorts().get(1) + " using portRange " + reas.getPortRange());
         assert(reas.getNumRecvThreads() == 4);
@@ -338,7 +373,12 @@ public class E2sarReassemblerTest {
         reas.free();
 
         // 7 thread
-        reas = new Reassembler(reasUri, inetAddress, listenPort, 7, rflags);
+        try {
+            reas = new Reassembler(reasUri, inetAddress, listenPort, 7, rflags);
+        } catch (E2sarNativeException e) {
+            e.printStackTrace();
+            fail();
+        }
         System.out.println("This reassembler has " + reas.getNumRecvThreads() + " receive threads and is listening on ports " + reas.getRecvPorts().get(0) + ":" +
             reas.getRecvPorts().get(1) + " using portRange " + reas.getPortRange());
         assert(reas.getNumRecvThreads() == 7);
@@ -349,7 +389,12 @@ public class E2sarReassemblerTest {
 
         // 4 threads with portRange override
         rflags.portRange = 10;
-        reas = new Reassembler(reasUri, inetAddress, listenPort, 4, rflags);
+        try {
+            reas = new Reassembler(reasUri, inetAddress, listenPort, 4, rflags);
+        } catch (E2sarNativeException e) {
+            e.printStackTrace();
+            fail();
+        }
         System.out.println("This reassembler has " + reas.getNumRecvThreads() + " receive threads and is listening on ports " + reas.getRecvPorts().get(0) + ":" +
             reas.getRecvPorts().get(1) + " using portRange " + reas.getPortRange());
         assert(reas.getNumRecvThreads() == 4);
@@ -360,7 +405,12 @@ public class E2sarReassemblerTest {
 
         // 4 threads with low portRange override
         rflags.portRange = 1;
-        reas = new Reassembler(reasUri, inetAddress, listenPort, 4, rflags);
+        try {
+            reas = new Reassembler(reasUri, inetAddress, listenPort, 4, rflags);
+        } catch (E2sarNativeException e) {
+            e.printStackTrace();
+            fail();
+        }
         System.out.println("This reassembler has " + reas.getNumRecvThreads() + " receive threads and is listening on ports " + reas.getRecvPorts().get(0) + ":" +
             reas.getRecvPorts().get(1) + " using portRange " + reas.getPortRange());
         assert(reas.getNumRecvThreads() == 4);

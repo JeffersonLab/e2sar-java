@@ -143,10 +143,6 @@ jobject convertToJLBStatus(JNIEnv *env, e2sar::LBStatus lbstatus){
 
   jobject jWorkerArrayList = convertJobjectVectorToArrayList(env, jWorkerVec);
 
-  for(auto jWorker :jWorkerVec){
-    env->DeleteLocalRef(jWorker);
-  }
-
   jclass jLBStatusClass = env->FindClass(javaLBStatusClass.data());
   if (jLBStatusClass == nullptr) {
       throwJavaException(env, "Could not find class: " + javaWorkerStatusClass);
@@ -163,6 +159,9 @@ jobject convertToJLBStatus(JNIEnv *env, e2sar::LBStatus lbstatus){
   env->DeleteLocalRef(jInstantTimestamp);
   env->DeleteLocalRef(jExpiresAt);
 
+  for(auto jWorker :jWorkerVec){
+    env->DeleteLocalRef(jWorker);
+  }
   return myObject;
 }
 

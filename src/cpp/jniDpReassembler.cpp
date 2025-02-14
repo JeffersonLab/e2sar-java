@@ -62,7 +62,13 @@ JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_Reassembler_initReassembler__Lorg_jla
         return -1;
     }
 
-    e2sar::Reassembler* reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, cpuCoreList, rFlags);
+    e2sar::Reassembler* reassembler = nullptr;
+    try{
+      reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, cpuCoreList, rFlags);
+    }
+    catch(const e2sar::E2SARException &e){
+      throwJavaException(env, e);
+    }
     return (jlong) reassembler;
   }
 
@@ -82,7 +88,13 @@ JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_Reassembler_initReassembler__Lorg_jla
     }
     auto rFlags = res.value();
 
-    e2sar::Reassembler* reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, cpuCoreList, rFlags);
+    e2sar::Reassembler* reassembler = nullptr;
+    try{
+      reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, cpuCoreList, rFlags);
+    }
+    catch(const e2sar::E2SARException &e){
+      throwJavaException(env, e);
+    }
     return (jlong) reassembler;
   }
 
@@ -95,7 +107,13 @@ JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_Reassembler_initReassembler__Lorg_jla
         return -1;
     }
 
-    e2sar::Reassembler* reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, cpuCoreList);
+    e2sar::Reassembler* reassembler = nullptr;
+    try{
+      reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, cpuCoreList);
+    }
+    catch(const e2sar::E2SARException &e){
+      throwJavaException(env, e);
+    }
     return (jlong) reassembler;
   }
 
@@ -107,8 +125,13 @@ JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_Reassembler_initReassembler__Lorg_jla
     if(!ipAddress.has_value()){
         return -1;
     }
-
-    e2sar::Reassembler* reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, (size_t) jNumRecvThreads, rFlags);
+    e2sar::Reassembler* reassembler = nullptr;
+    try{
+      reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, (size_t) jNumRecvThreads, rFlags);
+    }
+    catch(const e2sar::E2SARException &e){
+      throwJavaException(env, e);
+    }
     return (jlong) reassembler;
   }
 
@@ -127,20 +150,31 @@ JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_Reassembler_initReassembler__Lorg_jla
     }
     auto rFlags = res.value();
 
-    e2sar::Reassembler* reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, (size_t) jNumRecvThreads, rFlags);
+    e2sar::Reassembler* reassembler = nullptr;
+    try{
+      reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, (size_t) jNumRecvThreads, rFlags);
+    }
+    catch(const e2sar::E2SARException &e){
+      throwJavaException(env, e);
+    }
     return (jlong) reassembler;
   }
 
 JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_Reassembler_initReassembler__Lorg_jlab_hpdf_EjfatURI_2Ljava_net_InetAddress_2IJ
   (JNIEnv *env, jobject jReassembler, jobject jDpUri, jobject jInetAddress, jint jStartingPort, jlong jNumRecvThreads){
     e2sar::EjfatURI* dpUri = getEjfatUriFromField(env, jDpUri);
-    e2sar::Reassembler::ReassemblerFlags rFlags;
     std::optional<boost::asio::ip::address> ipAddress = convertInetAddressToBoostIp(env, jInetAddress);
     if(!ipAddress.has_value()){
         return -1;
     }
 
-    e2sar::Reassembler* reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, (size_t) jNumRecvThreads, rFlags);
+    e2sar::Reassembler* reassembler = nullptr;
+    try{
+      reassembler = new e2sar::Reassembler(*dpUri, ipAddress.value(), (u_int16_t) jStartingPort, (size_t) jNumRecvThreads);
+    }
+    catch(const e2sar::E2SARException &e){
+      throwJavaException(env, e);
+    }
     return (jlong) reassembler;
   }
 

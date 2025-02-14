@@ -39,8 +39,14 @@ JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_Segmenter_initSegmentor__Lorg_jlab_hp
   (JNIEnv *env, jobject jSegmenter, jobject jDpUri, jint jDataId, jlong jEventSrcId, jobject jSegmenterFlags){
     e2sar::EjfatURI* dpUri = getEjfatUriFromField(env, jDpUri);
     e2sar::Segmenter::SegmenterFlags sFlags = parseSegmenterFlags(env, jSegmenterFlags);
-    e2sar::Segmenter* segmenter = new e2sar::Segmenter(*dpUri, (u_int16_t)jDataId, (u_int32_t) jEventSrcId, sFlags);
 
+    e2sar::Segmenter* segmenter = nullptr;
+    try{
+      segmenter = new e2sar::Segmenter(*dpUri, (u_int16_t)jDataId, (u_int32_t) jEventSrcId, sFlags);
+    }
+    catch(const e2sar::E2SARException &e){
+      throwJavaException(env, e);
+    }
     return (jlong) segmenter;
   }
 
@@ -54,16 +60,26 @@ JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_Segmenter_initSegmentor__Lorg_jlab_hp
       return -1;
     }
     auto sFlags = res.value();
-    e2sar::Segmenter* segmenter = new e2sar::Segmenter(*dpUri, (u_int16_t)jDataId, (u_int32_t) jEventSrcId, sFlags);
-
+    e2sar::Segmenter* segmenter = nullptr;
+    try{
+      segmenter = new e2sar::Segmenter(*dpUri, (u_int16_t)jDataId, (u_int32_t) jEventSrcId, sFlags);
+    }
+    catch(const e2sar::E2SARException &e){
+      throwJavaException(env, e);
+    }
     return (jlong) segmenter;
   }
 
 JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_Segmenter_initSegmentor__Lorg_jlab_hpdf_EjfatURI_2IJ
   (JNIEnv *env, jobject jSegmenter, jobject jDpUri, jint jDataId, jlong jEventSrcId){
-    e2sar::Segmenter::SegmenterFlags sFlags;
     e2sar::EjfatURI* dpUri = getEjfatUriFromField(env, jDpUri);
-    e2sar::Segmenter* segmenter = new e2sar::Segmenter(*dpUri, (u_int16_t)jDataId, (u_int32_t) jEventSrcId, sFlags); 
+    e2sar::Segmenter* segmenter = nullptr;
+    try{
+      segmenter = new e2sar::Segmenter(*dpUri, (u_int16_t)jDataId, (u_int32_t) jEventSrcId);
+    }
+    catch(const e2sar::E2SARException &e){
+      throwJavaException(env, e);
+    }
     return (jlong) segmenter;
   }
 
