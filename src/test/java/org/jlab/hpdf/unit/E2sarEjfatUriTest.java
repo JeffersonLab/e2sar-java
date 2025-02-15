@@ -349,7 +349,7 @@ public class E2sarEjfatUriTest{
     void UriTest4(){
         // Using a different name should give an error
         try{
-            EjfatURI ejfatUri = EjfatURI.getFromEnv("EJFAT_URI_UNIT", EjfatURI.Token.ADMIN, false);
+            EjfatURI ejfatUri = EjfatURI.getFromEnv("EJFAT_URI1", EjfatURI.Token.ADMIN, false);
         }
         catch(E2sarNativeException e){
             return;
