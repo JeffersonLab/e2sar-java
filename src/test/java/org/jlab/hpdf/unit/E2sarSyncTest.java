@@ -41,9 +41,10 @@ public class E2sarSyncTest{
         sFlags.syncPeriodMs = 1000; // in ms
         sFlags.syncPeriods = 5; // number of sync periods to use for sync
 
-        Segmenter segmenter = new Segmenter(uri, dataId, eventSrcId, sFlags);
+        Segmenter segmenter = null;
         
         try{
+            segmenter = new Segmenter(uri, dataId, eventSrcId, sFlags);
             segmenter.openAndStart();
             System.out.println("Running sync test for 10 seconds " + uri.getSyncAddr().toString());
         }
