@@ -40,9 +40,10 @@ public class E2sarSegmenterTest {
         sFlags.syncPeriodMs = 1000; // in ms
         sFlags.syncPeriods = 5; // number of sync periods to use for sync
 
-        Segmenter segmenter = new Segmenter(uri, dataId, eventSrcId, sFlags);
+        Segmenter segmenter = null;
         
         try{
+            segmenter = new Segmenter(uri, dataId, eventSrcId, sFlags);
             segmenter.openAndStart();
         }
         catch(E2sarNativeException e){
@@ -112,9 +113,10 @@ public class E2sarSegmenterTest {
         sFlags.syncPeriods = 5; // number of sync periods to use for sync
         sFlags.mtu = 64 + 40;
 
-        Segmenter segmenter = new Segmenter(uri, dataId, eventSrcId, sFlags);
+        Segmenter segmenter = null;
         
         try{
+            segmenter = new Segmenter(uri, dataId, eventSrcId, sFlags);
             segmenter.openAndStart();
         }
         catch(E2sarNativeException e){
@@ -184,9 +186,10 @@ public class E2sarSegmenterTest {
         sFlags.syncPeriods = 5; // number of sync periods to use for sync
         sFlags.mtu = 64 + 40;
 
-        Segmenter segmenter = new Segmenter(uri, dataId, eventSrcId, sFlags);
+        Segmenter segmenter = null;
         
         try{
+            segmenter = new Segmenter(uri, dataId, eventSrcId, sFlags);;
             segmenter.openAndStart();
         }
         catch(E2sarNativeException e){
