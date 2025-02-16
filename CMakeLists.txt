@@ -39,4 +39,4 @@ ${Boost_LIBRARIES} ${GRPC_LIBRARIES} ${Protobuf_LIBRARIES} Threads::Threads ${JN
 if (CMAKE_CXX_COMPILER_ID MATCHES Clang)
   target_compile_options(jnie2sar PRIVATE -Wno-return-type-c-linkage)
 endif()
-install(TARGETS jnie2sar DESTINATION  "/usr/local/lib") 
+install(TARGETS jnie2sar DESTINATION lib) 
