@@ -31,7 +31,7 @@ public class LbManager {
    
     /**
      * Constructor to create LbManager
-     * @param EjfatURI Java object which will be converted to CPP EjfatURI in native method, This is copied, not by reference internally, remember to free 
+     * @param uri Java object which will be converted to CPP EjfatURI in native method, This is copied, not by reference internally, remember to free 
      * @param validateServer if false, skip server certificate validation (useful for self-signed testing)
      * @param useHostAddress even if hostname is provided, use host address as resolved by URI object (with preference for 
      * IPv4 by default or for IPv6 if explicitly requested)
@@ -43,13 +43,13 @@ public class LbManager {
 
     /**
      * Constructor to create LbManager with ssl credentials 
-     * @param EjfatURI Java object which will be converted to CPP EjfatURI in native method, This is copied, not by reference internally, remember to free
+     * @param uri Java object which will be converted to CPP EjfatURI in native method, This is copied, not by reference internally, remember to free
      * @param validateServer if false, skip server certificate validation (useful for self-signed testing)
      * @param useHostAddress even if hostname is provided, use host address as resolved by URI object (with preference for 
      * IPv4 by default or for IPv6 if explicitly requested)
-     * @param sslCredentialOptions ontaining server root certs, client key and client cert (in this order) 
+     * @param sslCredOpts ontaining server root certs, client key and client cert (in this order) 
      * use of SSL/TLS is governed by the URI scheme ('ejfat' vs 'ejfats').
-     * @param sslCredentialOptionsfromFile if true, assumes the contents of sslCredentialOptions are filepaths to the certificates
+     * @param sslCredOptsFromFile if true, assumes the contents of sslCredentialOptions are filepaths to the certificates
      * @throws E2sarNativeException - If native e2sar::LBManager could not be created
      */
     public LbManager(EjfatURI uri, boolean validateServer, boolean useHostAddress, String[] sslCredOpts, boolean sslCredOptsFromFile)throws E2sarNativeException{
@@ -112,9 +112,9 @@ public class LbManager {
     public LBStatus getStatus() throws E2sarNativeException {return getStatus(nativeLbManager);}
     private native LBStatus getStatus(long nativeLbManager) throws E2sarNativeException;
 
- 
     /**
      * Get load balancer status including list of workers, sender IP addresses
+     * @param lbid id of reserved LB
      * @return LBStatus instance
      * @throws E2sarNativeException - If there is an error reaching the LB or if LBStatus object could not be created
      */
@@ -123,7 +123,7 @@ public class LbManager {
 
     /**
      * Get an 'overview' of reserved load balancer instances
-     * @return List<LBOverview> of all reserved LB Instances
+     * @return List LBOverview of all reserved LB Instances
      * @throws E2sarNativeException - If there is an error reaching the LB or if LBOverview object could not be created
      */
     public List<LBOverview> getOverview() throws E2sarNativeException {return getOverview(nativeLbManager);}
@@ -167,8 +167,9 @@ public class LbManager {
      * instance token. It sets session token and session id on the internal
      * URI object. Note that a new worker must send state immediately (within 10s)
      * or be automatically deregistered.
-     * @param node_name - name of the node (can be FQDN)
-     * @param nodeIPandPort - a pair of ip::address and u_int16_t starting UDP port on which it listens
+     * @param nodeName - name of the node (can be FQDN)
+     * @param nodeIP - String represeting IP address of the worker
+     * @param port - starting UDP port on which it listens
      * @param weight - weight given to this node in terms of processing power
      * @param source_count - how many sources we can listen to (gets converted to port range [0,14])
      * @param min_factor - multiplied with the number of slots that would be assigned evenly to determine min number of slots

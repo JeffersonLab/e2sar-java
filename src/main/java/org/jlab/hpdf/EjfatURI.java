@@ -8,8 +8,8 @@ import org.jlab.hpdf.exceptions.E2sarNativeException;
  * This class is a wrapper for EjfatURI present in the native cpp library. It creates an instance of e2sar::EjfatURI and the pointer to this object 
  * is stored in nativeEjfatUri field
  * The URI is of the format:
- * ejfat[s]://[<token>@]<cp_host>:<cp_port>/lb/<lb_id>[?[data=<data_host>[:<data_port>]][&sync=<sync_host>:<sync_port>]][&sessionid=<string>].
- *  More than one data= address can be specified (typically an IPv4 and IPv6). For data
+ * ejfat[s]://[&lt;token&gt;@]&lt;cp_host&gt;:&lt;cp_port&gt;/lb/&lt;lb_id&gt;[?[data=&lt;data_host&gt;[:&lt;data_port&gt;]][&amp;sync=&lt;sync_host&gt;:&lt;sync_port&gt;]][&amp;sessionid=&lt;string&gt;].
+ * More than one data= address can be specified (typically an IPv4 and IPv6). For data
  * the port is optional and defaults to 19522, however for testing/debugging can be overridden
  * 
  * REMEMBER TO CALL FREE() ONCE DONE WITH THIS CLASS TO FREE THE NATIVE INSTANCE CREATED. MEMORY LEAKS WILL HAPPEN IF FREE IS NOT CALLED
@@ -24,8 +24,17 @@ public class EjfatURI{
      * Represents the privelege of the Token created.
      */
     public enum Token{
+        /**
+         * ADMIN privelege
+         */
         ADMIN,
+        /**
+         * INSTANCE privelege
+         */
         INSTANCE,
+        /**
+         * SESSION privelege
+         */
         SESSION
     }
     
@@ -208,7 +217,7 @@ public class EjfatURI{
     /**
      * Get control plane ip address and port
      * @return ip:port of control plane
-     * @throws E2sarNativeException
+     * @throws E2sarNativeException - if InetSocketAddress could not be created
      */
     public InetSocketAddress getCpAddr() throws E2sarNativeException{return getCpAddr(nativeEjfatURI);}
     private native InetSocketAddress getCpAddr(long nativeEjfatURI) throws E2sarNativeException;
@@ -216,7 +225,7 @@ public class EjfatURI{
     /**
      * Get control plane hostname and port
      * @return hostname:port of control plane
-     * @throws E2sarNativeException
+     * @throws E2sarNativeException - if InetSocketAddress could not be created
      */
     public InetSocketAddress getCpHost() throws E2sarNativeException {return getCpHost(nativeEjfatURI);}
     private native InetSocketAddress getCpHost(long nativeEjfatURI) throws E2sarNativeException;

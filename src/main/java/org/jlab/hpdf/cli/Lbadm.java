@@ -40,13 +40,6 @@ public class Lbadm {
             throw new IllegalArgumentException("Option '" + forWhat + "' requires option '" + requiredOption + "'.");
     }
 
-    /**
-     * 
-     * @param lbman - LbManager object
-     * @param lbName - is the name of the loadbalancer you give it
-     * @param senders - list of IP addresses of sender
-     * @param duration - is a string indicating the duration you wish to reserve LB for format "hh:mm:ss"
-     */
     public static void reserveLB(LbManager lbman, String lbName, List<String> senders, String duration, boolean suppress){
         int fpgaLbid;
         if(!suppress){

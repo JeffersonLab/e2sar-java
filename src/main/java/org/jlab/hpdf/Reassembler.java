@@ -221,8 +221,8 @@ public class Reassembler {
     private native long getNumRecvThreads(long nativeReassembler);
 
     /**
-     * Get the ports this reassembler is listening on, returned as a List with two items <start port, end port>
-     * @return List<Integer> of size 2 containing {start port, end port} 
+     * Get the ports this reassembler is listening on, returned as a List with two items [start port, end port]
+     * @return List[Integer] of size 2 containing {start port, end port} 
      */
     public List<Integer> getRecvPorts() { return getRecvPorts(nativeReassembler);}
     private native List<Integer> getRecvPorts(long nativeReassembler);
