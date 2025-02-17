@@ -182,7 +182,7 @@ public class LbManager {
     public EjfatURI getEjfatURI(){
         if(uri == null){
             long internalUri = getInternalUri(nativeLbManager);
-            uri = EjfatURI.getInternalInstance(internalUri);
+            uri = new EjfatURI(internalUri);
         }
         return uri;
     }

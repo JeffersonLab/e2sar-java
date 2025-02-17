@@ -369,7 +369,7 @@ public class Lbadm {
         EjfatURI uri;
         try{
             if(cmd.hasOption("uri")){
-                uri = EjfatURI.createInstance(cmd.getOptionValue("uri"), tt, preferV6);       
+                uri = new EjfatURI(cmd.getOptionValue("uri"), tt, preferV6);       
             }
             else{
                 uri = EjfatURI.getFromEnv("EJFAT_URI", tt, preferV6);

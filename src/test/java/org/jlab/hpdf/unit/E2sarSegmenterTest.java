@@ -27,7 +27,7 @@ public class E2sarSegmenterTest {
         System.out.println("DPSegTest1: test segmenter (and sync thread) by sending 5 events via event queue with default MTU");
         EjfatURI uri = null;
         try{
-            uri = EjfatURI.createInstance("ejfat://useless@192.168.100.1:9876/lb/1?sync=192.168.254.1:12345&data=10.250.100.123");
+            uri = new EjfatURI("ejfat://useless@192.168.100.1:9876/lb/1?sync=192.168.254.1:12345&data=10.250.100.123");
             System.out.println("Running data test for 10 seconds against sync" + uri.getSyncAddr().toString() + " and data " + uri.getDataAddrv4().toString());
         }
         catch(E2sarNativeException e){
@@ -99,7 +99,7 @@ public class E2sarSegmenterTest {
         System.out.println("DPSegTest2: test segmenter (and sync thread) by sending 5 events via event queue with small MTU so 10 frames are sent");
         EjfatURI uri = null;
         try{
-            uri = EjfatURI.createInstance("ejfat://useless@192.168.100.1:9876/lb/1?sync=192.168.254.1:12345&data=10.250.100.123");
+            uri = new EjfatURI("ejfat://useless@192.168.100.1:9876/lb/1?sync=192.168.254.1:12345&data=10.250.100.123");
             System.out.println("Running data test for 10 seconds against sync" + uri.getSyncAddr().toString() + " and data " + uri.getDataAddrv4().toString());
         }
         catch(E2sarNativeException e){
@@ -172,7 +172,7 @@ public class E2sarSegmenterTest {
         System.out.println("DPSegTest3: test segmenter (and sync thread) by sending 5 events via sendEvent() with small MTU so 10 frames are sent");
         EjfatURI uri = null;
         try{
-            uri = EjfatURI.createInstance("ejfat://useless@192.168.100.1:9876/lb/1?sync=192.168.254.1:12345&data=10.250.100.123");
+            uri = new EjfatURI("ejfat://useless@192.168.100.1:9876/lb/1?sync=192.168.254.1:12345&data=10.250.100.123");
             System.out.println("Running data test for 10 seconds against sync" + uri.getSyncAddr().toString() + " and data " + uri.getDataAddrv4().toString());
         }
         catch(E2sarNativeException e){

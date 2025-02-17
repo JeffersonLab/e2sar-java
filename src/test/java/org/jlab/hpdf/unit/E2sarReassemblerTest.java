@@ -39,8 +39,8 @@ public class E2sarReassemblerTest {
         EjfatURI segUri = null;
         EjfatURI reasUri = null;
         try{
-            segUri = EjfatURI.createInstance(segUriString);
-            reasUri = EjfatURI.createInstance(reasUriString);
+            segUri = new EjfatURI(segUriString);
+            reasUri = new EjfatURI(reasUriString);
         }
         catch(E2sarNativeException e){
             e.printStackTrace();
@@ -183,8 +183,8 @@ public class E2sarReassemblerTest {
         EjfatURI segUri = null;
         EjfatURI reasUri = null;
         try{
-            segUri = EjfatURI.createInstance(segUriString);
-            reasUri = EjfatURI.createInstance(reasUriString);
+            segUri = new EjfatURI(segUriString);
+            reasUri = new EjfatURI(reasUriString);
         }
         catch(E2sarNativeException e){
             e.printStackTrace();
@@ -325,7 +325,7 @@ public class E2sarReassemblerTest {
 
         EjfatURI reasUri = null;
         try{
-            reasUri = EjfatURI.createInstance(reasUriString);
+            reasUri = new EjfatURI(reasUriString);
         }
         catch(E2sarNativeException e){
             e.printStackTrace();

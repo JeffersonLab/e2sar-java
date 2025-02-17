@@ -25,7 +25,7 @@ public class E2sarLbCpTest{
         String[] sslOpts = {"root cert", "priv key", "cert"};
 
         try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uriString);
+            EjfatURI ejfatUri = new EjfatURI(uriString);
             LbManager lbManager = new LbManager(ejfatUri, false, false, sslOpts, false);
             ejfatUri.free();
             lbManager.free();
@@ -39,7 +39,7 @@ public class E2sarLbCpTest{
     @Test
     void LBMTest2(){
         try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uriString);
+            EjfatURI ejfatUri = new EjfatURI(uriString);
             LbManager lbManager = new LbManager(ejfatUri, true, false);
             ejfatUri.free();
             lbManager.free();

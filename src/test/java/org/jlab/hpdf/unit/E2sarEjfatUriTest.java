@@ -48,7 +48,7 @@ public class E2sarEjfatUriTest{
     @Test
     void UriTest1_1(){
         try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uri_string1);
+            EjfatURI ejfatUri = new EjfatURI(uri_string1);
             ejfatUri.free();
         }
         catch(E2sarNativeException e){
@@ -60,7 +60,7 @@ public class E2sarEjfatUriTest{
     @Test
     void UriTest1_2(){
         try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uri_string7);
+            EjfatURI ejfatUri = new EjfatURI(uri_string7);
             ejfatUri.free();
         }
         catch(E2sarNativeException e){
@@ -72,7 +72,7 @@ public class E2sarEjfatUriTest{
     @Test
     void UriTest2_1(){
         try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uri_string1);
+            EjfatURI ejfatUri = new EjfatURI(uri_string1);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string1);
 
@@ -96,7 +96,7 @@ public class E2sarEjfatUriTest{
     void UriTest2_2(){
         EjfatURI ejfatUri;
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string3);
+            ejfatUri = new EjfatURI(uri_string3);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string3);
 
@@ -114,7 +114,7 @@ public class E2sarEjfatUriTest{
             fail();
         }
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string3);
+            ejfatUri = new EjfatURI(uri_string3);
             ejfatUri.getDataAddrv4();
             ejfatUri.free();
         }
@@ -128,7 +128,7 @@ public class E2sarEjfatUriTest{
     void UriTest2_3(){
         EjfatURI ejfatUri;
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4);
+            ejfatUri = new EjfatURI(uri_string4);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string4);
 
@@ -145,7 +145,7 @@ public class E2sarEjfatUriTest{
 
         boolean dataAddrError = false;
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4);
+            ejfatUri = new EjfatURI(uri_string4);
             ejfatUri.getDataAddrv4();
             ejfatUri.free();
         }
@@ -154,7 +154,7 @@ public class E2sarEjfatUriTest{
         }
 
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4);
+            ejfatUri = new EjfatURI(uri_string4);
             ejfatUri.getSyncAddr();
             ejfatUri.free();
         }
@@ -171,7 +171,7 @@ public class E2sarEjfatUriTest{
     void UriTest2_4(){
         EjfatURI ejfatUri;
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string5);
+            ejfatUri = new EjfatURI(uri_string5);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string5);
 
@@ -189,7 +189,7 @@ public class E2sarEjfatUriTest{
             fail();
         }
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string5);
+            ejfatUri = new EjfatURI(uri_string5);
             ejfatUri.getSyncAddr();
             ejfatUri.free();
         }
@@ -203,7 +203,7 @@ public class E2sarEjfatUriTest{
     void UriTest2_5(){
         EjfatURI ejfatUri;
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string6);
+            ejfatUri = new EjfatURI(uri_string6);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string6);
 
@@ -220,7 +220,7 @@ public class E2sarEjfatUriTest{
             fail();
         }
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string6);
+            ejfatUri = new EjfatURI(uri_string6);
             ejfatUri.getAdminToken();
             ejfatUri.free();
         }
@@ -234,7 +234,7 @@ public class E2sarEjfatUriTest{
     void UriTest2_6(){
         EjfatURI ejfatUri;
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4_1);
+            ejfatUri = new EjfatURI(uri_string4_1);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string4_1);
 
@@ -251,7 +251,7 @@ public class E2sarEjfatUriTest{
 
         boolean dataAddrError = false;
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4_1);
+            ejfatUri = new EjfatURI(uri_string4_1);
             ejfatUri.getDataAddrv4();
             ejfatUri.free();
         }
@@ -260,7 +260,7 @@ public class E2sarEjfatUriTest{
         }
 
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4_1);
+            ejfatUri = new EjfatURI(uri_string4_1);
             ejfatUri.getSyncAddr();
             ejfatUri.free();
         }
@@ -276,7 +276,7 @@ public class E2sarEjfatUriTest{
     void UriTest2_7(){
         EjfatURI ejfatUri;
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4_2);
+            ejfatUri = new EjfatURI(uri_string4_2);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string4_2);
 
@@ -292,7 +292,7 @@ public class E2sarEjfatUriTest{
             fail();
         }
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4_2);
+            ejfatUri = new EjfatURI(uri_string4_2);
             ejfatUri.getDataAddrv4();
             ejfatUri.free();
         }
@@ -306,7 +306,7 @@ public class E2sarEjfatUriTest{
     void UriTest2_8(){
         EjfatURI ejfatUri;
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4_3);
+            ejfatUri = new EjfatURI(uri_string4_3);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string4_3);
 
@@ -322,7 +322,7 @@ public class E2sarEjfatUriTest{
             fail();
         }
         try{
-            ejfatUri = EjfatURI.createInstance(uri_string4_3);
+            ejfatUri = new EjfatURI(uri_string4_3);
             ejfatUri.getDataAddrv4();
             ejfatUri.free();
         }
@@ -360,7 +360,7 @@ public class E2sarEjfatUriTest{
     @Test
     void UriTest5(){
         try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uri_string7);
+            EjfatURI ejfatUri = new EjfatURI(uri_string7);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string7);
 
@@ -381,7 +381,7 @@ public class E2sarEjfatUriTest{
     @Test
     void UriTest6(){
          try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uri_string8);
+            EjfatURI ejfatUri = new EjfatURI(uri_string8);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string8);
 
@@ -398,7 +398,7 @@ public class E2sarEjfatUriTest{
     @Test
     void UriTest7(){
          try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uri_string9);
+            EjfatURI ejfatUri = new EjfatURI(uri_string9);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string9);
 
@@ -416,7 +416,7 @@ public class E2sarEjfatUriTest{
     @Test
     void UriTest8(){
         try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uri_string9, EjfatURI.Token.ADMIN, true);
+            EjfatURI ejfatUri = new EjfatURI(uri_string9, EjfatURI.Token.ADMIN, true);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string9);
 
@@ -434,7 +434,7 @@ public class E2sarEjfatUriTest{
     @Test
     void UriTest9(){
          try{
-            EjfatURI ejfatUri = EjfatURI.createInstance(uri_string10);
+            EjfatURI ejfatUri = new EjfatURI(uri_string10);
 
             System.out.println(ejfatUri.toString(EjfatURI.Token.ADMIN) + " vs " + uri_string10);
             

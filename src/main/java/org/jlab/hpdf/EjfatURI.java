@@ -21,20 +21,16 @@ public class EjfatURI{
     
     private long nativeEjfatURI;
 
-    private EjfatURI(long nativeEjfatURI){
+    protected EjfatURI(long nativeEjfatURI){
         this.nativeEjfatURI = nativeEjfatURI;
     }
 
-    public static EjfatURI createInstance(String uri, Token token, boolean preferv6)throws E2sarNativeException{
-        return new EjfatURI(initEjfatUri(uri, token.ordinal(), preferv6));
+    public EjfatURI(String uri, Token token, boolean preferv6)throws E2sarNativeException{
+        nativeEjfatURI = initEjfatUri(uri, token.ordinal(), preferv6);
     }
 
-    public static EjfatURI createInstance(String uri)throws E2sarNativeException{
-        return createInstance(uri, Token.ADMIN, false);
-    }
-
-    protected static EjfatURI getInternalInstance(long nativeEjfatURI){
-        return new EjfatURI(nativeEjfatURI);
+    public EjfatURI(String uri) throws E2sarNativeException{
+        this(uri, Token.ADMIN, false);
     }
 
     public static EjfatURI getFromEnv(String envVariable, Token token, boolean preferv6) throws E2sarNativeException{
@@ -42,7 +38,7 @@ public class EjfatURI{
         if(uri == null || uri.isEmpty()){
             throw new E2sarNativeException("Environment variable : " + envVariable + " is not set");
         }
-        return createInstance(uri,token,preferv6);
+        return new EjfatURI(uri,token,preferv6);
     }
 
     public static EjfatURI getFromFile(String fileName, Token token, boolean preferv6) throws E2sarNativeException{
