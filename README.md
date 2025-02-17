@@ -12,12 +12,12 @@ Both components are dependent on each other to function, the high level details 
 
 - CMAKE 
 - Java (openjdk 17) needs to be installed to access the JNI header files
--  Either compiling and building [E2SAR](https://github.com/JeffersonLab/E2SAR) from source or a release of [E2SAR-Releases](https://github.com/JeffersonLab/E2SAR/releases/) to be installed. The latter is preffered. 
+-  Either compiling and building [E2SAR](https://github.com/JeffersonLab/E2SAR) from source or a release of [E2SAR-Releases](https://github.com/JeffersonLab/E2SAR/releases/) to be installed. The latter is preferred. 
     - The release contains all dependencies of E2SAR(GRPC,Boost) which otherwise need to be compiled and installed separately. Follow the instructions on the E2SAR repo.
 
 ### Building jnie2sar.so
 
-`PKG_CONFIG_PATH` needs to be set for cmake to find `libe2sar`. If the relase .deb or .rpm is installed the default install location will be `/usr/local/lib:/usr/lcoal/lib64`. Similary `LD_LIBRARY_PATH` would need to be set for linking.
+`PKG_CONFIG_PATH` needs to be set for cmake to find `libe2sar`. If the relase .deb or .rpm is installed the default install location will be `/usr/local/lib:/usr/local/lib64`. Similary `LD_LIBRARY_PATH` would need to be set for linking.
 
 `JAVA_HOME` also needs to be set to find the JNI header files.
 
@@ -54,7 +54,7 @@ $ mvn clean compile
 ```
 Packaging in maven will run all the tests in `E2SAR-JAVA`, the live tests are only meant to be run on FABRIC so these will fail. To run only unit tests we will specify the package using `-Dtest=org.jlab.hpdf.unit.**` 
 
-Maven surefire also does not parse `-Djava.library.path` directly so you need to wrap it `-DargLine`. Assuming that you have installed `libjnie2sar.so` in `/usr/local/lib`, you can use the following command to package and install e2sar to the local maven repository
+Maven surefire also does not parse `-Djava.library.path` directly so you need to wrap it `-DargLine`. Assuming that you have installed `libjnie2sar.so` in `/usr/local/lib`, you can use the following command to package and install `E2SAR-JAVA` to the local maven repository
 
 ```bash
 $ mvn -DargLine='-Djava.library.path=/usr/local/lib' clean install -Dtest='org.jlab.hpdf.unit.**'
@@ -64,7 +64,7 @@ $ mvn -DargLine='-Djava.library.path=/usr/local/lib' clean install -Dtest='org.j
 
 Unit and live tests have been reproduced from [E2SAR-tests](https://github.com/JeffersonLab/E2SAR/tree/main/test). Both of them require `libjnie2sar.so` installed. Assuming installation path is `/usr/local/lib` for the following commands
 
-Unit Tests can be run on your machine using `mvn -DargLine='-Djava.library.path=/path/to/directory' clean install -Dtest='org.jlab.hpdf.unit.**'`
+Unit Tests can be run on your machine using `mvn -DargLine='-Djava.library.path=/path/to/directory' clean test -Dtest='org.jlab.hpdf.unit.**'`
 
 Live Tests require an instance of UDPLBd running need the `EJFAT_URI` environment variable to be set (e.g `export EJFAT_URI="ejfats://udplbd@192.168.0.3:18347/"`)
 
