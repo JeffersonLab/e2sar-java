@@ -3,6 +3,9 @@ package org.jlab.hpdf.messages;
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * This class is only instantiated in the native JNI wrapper when a LBStatus needs to be passed to Java
+ */
 public class LBStatus{
     public Instant timestamp;
     public long currentEpoch;

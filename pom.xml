@@ -17,6 +17,7 @@
     <maven.compiler-plugin.version>3.8.1</maven.compiler-plugin.version>
     <maven.assembly-plugin.version>3.7.1</maven.assembly-plugin.version>
     <maven.surefire-plugin.version>3.5.2</maven.surefire-plugin.version>
+    <maven.javadoc.version>3.11.2</maven.javadoc.version>
 
     <slf4j.version>2.0.16</slf4j.version>
     <junit.jupiter-engine.version>5.11.4</junit.jupiter-engine.version>
@@ -28,17 +29,6 @@
       <artifactId>junit-jupiter</artifactId>
       <version>${junit.jupiter-engine.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency> 
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>${slf4j.version}</version>
-      <!-- <scope>test</scope> -->
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
@@ -102,6 +92,11 @@
               <EJFAT_URI_UNIT><![CDATA[ejfat://token@192.188.29.6:18020/lb/36?sync=192.188.29.6:19020&data=192.188.29.20]]></EJFAT_URI_UNIT>
             </environmentVariables>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven.javadoc.version}</version>
         </plugin>
       </plugins>
   </build>

@@ -4,6 +4,9 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
+/**
+ * This class is only instantiated in the native JNI wrapper when a LBOverview needs to be passed to Java
+ */
 public class LBOverview {
     public String name;
     public String lbid;

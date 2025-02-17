@@ -18,20 +18,13 @@ import org.jlab.hpdf.exceptions.E2sarNativeException;
 import org.jlab.hpdf.messages.LBOverview;
 import org.jlab.hpdf.messages.LBStatus;
 import org.jlab.hpdf.messages.WorkerStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 
 public class Lbadm {
 
-    private static Logger logger;
-
     /**
-     * 
-     * @param cmd
-     * @param opt1
-     * @param opt2
+     * Function to check that opt1 and opt2 are not sepcified
      */
     private static void conflictingOptions(CommandLine cmd, String opt1, String opt2){
         if(cmd.hasOption(opt1) && cmd.hasOption(opt2)){
@@ -40,38 +33,42 @@ public class Lbadm {
     }
     
     /**
-     * Function to find optionDependcies, throws an exception
-     * @param cmd
-     * @param forWhat
-     * @param requiredOption
+     * Function used to check that of 'for_what' is specified, then 'required_option' is specified too. throws an exception
      */
     private static void optionDependency(CommandLine cmd, final String forWhat, final String requiredOption) throws IllegalArgumentException{
         if(cmd.hasOption(forWhat) && !cmd.hasOption(requiredOption))
             throw new IllegalArgumentException("Option '" + forWhat + "' requires option '" + requiredOption + "'.");
     }
 
+    /**
+     * 
+     * @param lbman - LbManager object
+     * @param lbName - is the name of the loadbalancer you give it
+     * @param senders - list of IP addresses of sender
+     * @param duration - is a string indicating the duration you wish to reserve LB for format "hh:mm:ss"
+     */
     public static void reserveLB(LbManager lbman, String lbName, List<String> senders, String duration, boolean suppress){
         int fpgaLbid;
         if(!suppress){
-            logger.debug("Reserving a new load balancer");
-            logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.ADMIN) + " using address: " + lbman.getAddrString());
-            logger.debug("   LB Name: " + lbName);
-            logger.debug("   Allowed senders: ");
+            System.out.println("Reserving a new load balancer");
+            System.out.println("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.ADMIN) + " using address: " + lbman.getAddrString());
+            System.out.println("   LB Name: " + lbName);
+            System.out.println("   Allowed senders: ");
             for(String sender : senders){
-                logger.debug(sender);
+                System.out.println(sender);
             }
-            logger.debug("   Duration: " + duration);
+            System.out.println("   Duration: " + duration);
         }
         try{
             fpgaLbid = lbman.reserveLB(lbName, duration, senders);
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP, error", e);
+            System.out.println("unable to connect to Load Balancer CP, error:"  + e.getMessage());
             return;
         }
         if(!suppress){
-            logger.info("Success. FPGA ID is (for metrics): " + fpgaLbid);
-            logger.info("Updated URI after reserve with instance token: " + lbman.getEjfatURI().toString(EjfatURI.Token.INSTANCE));
+            System.out.println("Success. FPGA ID is (for metrics): " + fpgaLbid);
+            System.out.println("Updated URI after reserve with instance token: " + lbman.getEjfatURI().toString(EjfatURI.Token.INSTANCE));
         }
         else{
             System.out.println("export EJFAT_URI='" + lbman.getEjfatURI().toString(EjfatURI.Token.INSTANCE) + "'");
@@ -79,9 +76,9 @@ public class Lbadm {
     }
 
     public static void freeLB(LbManager lbman, String lbid){
-        logger.debug("Freeing a load balancer ");
-        logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.ADMIN) + " using address: " + lbman.getAddrString());
-        logger.debug("   LB ID: " + (lbid.isEmpty() ? lbman.getEjfatURI().getLbid() : lbid));
+        System.out.println("Freeing a load balancer ");
+        System.out.println("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.ADMIN) + " using address: " + lbman.getAddrString());
+        System.out.println("   LB ID: " + (lbid.isEmpty() ? lbman.getEjfatURI().getLbid() : lbid));
 
         try{
             if(lbid.isEmpty())
@@ -91,171 +88,170 @@ public class Lbadm {
 
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP", e);
+            System.out.println("unable to connect to Load Balancer CP" + e.getMessage());
             return;
         }
-        logger.info("Success");
+        System.out.println("Success");
     }
 
     public static void registerWorker(LbManager lbman, String nodeName, 
         String nodeIp, int nodePort, float weight, 
         int srcCount, float minFactor, float maxFactor, boolean suppress){
         if(!suppress){
-            logger.debug("Registering a worker ");
-            logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.INSTANCE) + " using address: " + lbman.getAddrString());
-            logger.debug("   Worker details: " + nodeName + " at " + nodeIp + ":" + nodePort);
-            logger.debug("   CP parameters: " + "w=" + weight + ",  source_count=" + srcCount);
+            System.out.println("Registering a worker ");
+            System.out.println("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.INSTANCE) + " using address: " + lbman.getAddrString());
+            System.out.println("   Worker details: " + nodeName + " at " + nodeIp + ":" + nodePort);
+            System.out.println("   CP parameters: " + "w=" + weight + ",  source_count=" + srcCount);
         }
 
         try{
             lbman.registerWorker(nodeName, nodeIp, nodePort, weight, srcCount, minFactor, maxFactor);
             if(!suppress){
-                logger.debug("Success.");
-                logger.debug("Updated URI after register with session token: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION));
-                logger.debug("Session id is: " + lbman.getEjfatURI().getSessionId());
+                System.out.println("Success.");
+                System.out.println("Updated URI after register with session token: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION));
+                System.out.println("Session id is: " + lbman.getEjfatURI().getSessionId());
             }
             else{
                 System.out.println("export EJFAT_URI='" + lbman.getEjfatURI().toString(EjfatURI.Token.INSTANCE) + "'");
             }
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP", e);
+            System.out.println("unable to connect to Load Balancer CP" + e.getMessage());
         }
     }
 
     public static void deregisterWorker(LbManager lbman){
-        logger.debug("De-Registering a worker");
-        logger.debug("  Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + "using address: " + lbman.getAddrString());
+        System.out.println("De-Registering a worker");
+        System.out.println("  Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + "using address: " + lbman.getAddrString());
         try{
             lbman.deregisterWorker();
-            logger.debug("Success");
+            System.out.println("Success");
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP", e);
+            System.out.println("unable to connect to Load Balancer CP" + e.getMessage());
         }
     }
 
     public static void getLBStatus(LbManager lbman, String lbid){
-        logger.debug("Getting LB Status ");
-        logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
-        logger.debug("   LB ID: " + (lbid.isEmpty() ? lbman.getEjfatURI().getLbid() : lbid));
+        System.out.println("Getting LB Status ");
+        System.out.println("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
+        System.out.println("   LB ID: " + (lbid.isEmpty() ? lbman.getEjfatURI().getLbid() : lbid));
 
         try{
             LBStatus lbStatus = lbman.getStatus(lbid);
 
-            logger.debug("Registered sender addresses:");
+            System.out.println("Registered sender addresses:");
             for(String s : lbStatus.senderAddresses)
-                logger.debug(s);
+                System.out.println(s);
             
-            logger.debug("Registered workers: ");
+            System.out.println("Registered workers: ");
             for(WorkerStatus wStatus : lbStatus.workers){
-                logger.debug("[ name=" + wStatus.name + ", controlsignal=" + wStatus.controlSignal + ", fillpercent=" + wStatus.fillPercent 
+                System.out.println("[ name=" + wStatus.name + ", controlsignal=" + wStatus.controlSignal + ", fillpercent=" + wStatus.fillPercent 
                 + ", slotsassigned=" + wStatus.slotsAssigned + ", lastupdated=" + wStatus.lastUpdated.toString() + "] ");
             }
             String expiresAt = lbStatus.expiresAt != null ? lbStatus.expiresAt.toString() : "This did not work";
-            logger.debug("LB details: expiresat=" + expiresAt + ", currentepoch=" + lbStatus.currentEpoch + ", predictedeventnum="
+            System.out.println("LB details: expiresat=" + expiresAt + ", currentepoch=" + lbStatus.currentEpoch + ", predictedeventnum="
             + lbStatus.currentPredictedEventNumber);
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP", e);
+            System.out.println("unable to connect to Load Balancer CP" + e.getMessage());
         }
     }
 
     public static void getOverview(LbManager lbman){
-        logger.debug("Getting Overview");
-        logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
+        System.out.println("Getting Overview");
+        System.out.println("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
 
         try{
             List<LBOverview> overviewList = lbman.getOverview();
             for(LBOverview overview : overviewList){
-                logger.debug("LB" + overview.name + " ID: " + overview.lbid + " FPGA LBID: " + overview.fpgaLbid);
-                logger.debug("  Registered sender addresses: ");
+                System.out.println("LB" + overview.name + " ID: " + overview.lbid + " FPGA LBID: " + overview.fpgaLbid);
+                System.out.println("  Registered sender addresses: ");
                 for(String senderAddress : overview.status.senderAddresses){
-                    logger.debug(senderAddress);
+                    System.out.println(senderAddress);
                 }
 
-                logger.debug("  Registered workers: ");
+                System.out.println("  Registered workers: ");
                 for(WorkerStatus wStatus : overview.status.workers){
-                    logger.debug("[ name=" + wStatus.name + ", controlsignal=" + wStatus.controlSignal + ", fillpercent=" + wStatus.fillPercent 
+                    System.out.println("[ name=" + wStatus.name + ", controlsignal=" + wStatus.controlSignal + ", fillpercent=" + wStatus.fillPercent 
                     + ", slotsassigned=" + wStatus.slotsAssigned + ", lastupdated=" + wStatus.lastUpdated.toString() + "] ");
                 }
-                logger.debug("LB details: expiresat=" + overview.status.expiresAt.toString() + ", currentepoch=" + overview.status.currentEpoch + ", predictedeventnum="
+                System.out.println("LB details: expiresat=" + overview.status.expiresAt.toString() + ", currentepoch=" + overview.status.currentEpoch + ", predictedeventnum="
                 + overview.status.currentPredictedEventNumber);
             }
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP", e);
+            System.out.println("unable to connect to Load Balancer CP" + e.getMessage());
         }
     }
 
     public static void sendState(LbManager lbman, float fillPercent, float ctrlSignal, boolean isReady){
-        logger.debug("Sending Worker State ");
-        logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
-        logger.debug("   LB Name: " + (lbman.getEjfatURI().getLbName().isEmpty() ? "not set" : lbman.getEjfatURI().getLbName()));
+        System.out.println("Sending Worker State ");
+        System.out.println("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
+        System.out.println("   LB Name: " + (lbman.getEjfatURI().getLbName().isEmpty() ? "not set" : lbman.getEjfatURI().getLbName()));
 
         try{
             lbman.sendState(fillPercent, ctrlSignal, isReady);
-            logger.debug("Success.");
+            System.out.println("Success.");
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP", e);
+            System.out.println("unable to connect to Load Balancer CP" + e.getMessage());
         }
         
     }
 
     public static void removeSenders(LbManager lbman, List<String> senders){
-        logger.debug("Removing senders to CP ");
-        logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
-        logger.debug("   LB Name: " + (lbman.getEjfatURI().getLbName().isEmpty() ? "not set" : lbman.getEjfatURI().getLbName()));
-        logger.debug("   Sender list: ");
+        System.out.println("Removing senders to CP ");
+        System.out.println("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
+        System.out.println("   LB Name: " + (lbman.getEjfatURI().getLbName().isEmpty() ? "not set" : lbman.getEjfatURI().getLbName()));
+        System.out.println("   Sender list: ");
         for(String s : senders)
-            logger.debug(s);
+            System.out.println(s);
 
         try{
             lbman.removeSenders(senders);
-            logger.debug("Success.");
+            System.out.println("Success.");
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP", e);
+            System.out.println("unable to connect to Load Balancer CP" + e.getMessage());
         }
     }
 
     public static void addSenders(LbManager lbman, List<String> senders){
-        logger.debug("Adding senders to CP ");
-        logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
-        logger.debug("   LB Name: " + (lbman.getEjfatURI().getLbName().isEmpty() ? "not set" : lbman.getEjfatURI().getLbName()));
-        logger.debug("   Sender list: ");
+        System.out.println("Adding senders to CP ");
+        System.out.println("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.SESSION) + " using address: " + lbman.getAddrString());
+        System.out.println("   LB Name: " + (lbman.getEjfatURI().getLbName().isEmpty() ? "not set" : lbman.getEjfatURI().getLbName()));
+        System.out.println("   Sender list: ");
         for(String s : senders)
-            logger.debug(s);
+            System.out.println(s);
 
         try{
             lbman.addSenders(senders);
-            logger.debug("Success.");
+            System.out.println("Success.");
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP", e);
+            System.out.println("unable to connect to Load Balancer CP" + e.getMessage());
         }
     }
 
     public static void getVersion(LbManager lbman){
-        logger.debug("Getting load balancer version");
-        logger.debug("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.ADMIN) + " using address: " + lbman.getAddrString());
+        System.out.println("Getting load balancer version");
+        System.out.println("   Contacting: " + lbman.getEjfatURI().toString(EjfatURI.Token.ADMIN) + " using address: " + lbman.getAddrString());
 
         try{
             List<String> versionList = lbman.version();
-            logger.debug("Success.");
-            logger.debug("Reported version: ");
-            logger.debug("Commit: " + versionList.get(0));
-            logger.debug("Build: " + versionList.get(1));
-            logger.debug("CompatTag: " + versionList.get(2));
+            System.out.println("Success.");
+            System.out.println("Reported version: ");
+            System.out.println("Commit: " + versionList.get(0));
+            System.out.println("Build: " + versionList.get(1));
+            System.out.println("CompatTag: " + versionList.get(2));
         }
         catch(E2sarNativeException e){
-            logger.error("unable to connect to Load Balancer CP", e);
+            System.out.println("unable to connect to Load Balancer CP" + e.getMessage());
         }
     }
 
     public static void main(String args[]){
-        logger = LoggerFactory.getLogger(Lbadm.class);
 
         Options options = new Options();
         options.addOption("h", "help", false, "Show this help message");
@@ -323,11 +319,11 @@ public class Lbadm {
             }
         }
         catch(ParseException e){
-            logger.error("Unrecognized Option use -h for available options", e);
+            System.out.println("Unrecognized Option use -h for available options" + e.getMessage());
             return;
         }
         catch(IllegalArgumentException e){
-            logger.error("Wrong combination of options", e);
+            System.out.println("Wrong combination of options" + e.getMessage());
             return;
         }
         boolean suppress = false;
@@ -337,7 +333,7 @@ public class Lbadm {
 
         if(!suppress){
             System.out.println("E2SAR Version: " + E2sarUtil.getE2sarVersion());
-            logger.info("E2SAR Version: " + E2sarUtil.getE2sarVersion());
+            System.out.println("E2SAR Version: " + E2sarUtil.getE2sarVersion());
         }
 
         if (cmd.hasOption("help") || cmd.getOptions().length == 0){
@@ -376,7 +372,7 @@ public class Lbadm {
             }
         }
         catch(E2sarNativeException e){
-            logger.error("EJFAT_URI env variable not set", e);
+            System.out.println("EJFAT_URI env variable not set" + e.getMessage());
             return;
         }
 
@@ -392,7 +388,7 @@ public class Lbadm {
         try{
             lbManager = new LbManager(uri, true, preferHostAddr);
             if (cmd.hasOption("root") && !uri.getUseTls()){
-                logger.warn("Root certificate passed in, but URL doesn't require TLS/SSL, ignoring");
+                System.out.println("Root certificate passed in, but URL doesn't require TLS/SSL, ignoring");
             }
             else{
                 if (cmd.hasOption("root")) {
@@ -403,14 +399,14 @@ public class Lbadm {
                 }
                 else{
                     if (cmd.hasOption("novalidate")){
-                        logger.info("Skipping server certificate validation");
+                        System.out.println("Skipping server certificate validation");
                         lbManager = new LbManager(uri, false, preferHostAddr);
                     }
                 }
             }
         }
         catch(E2sarNativeException e){
-            logger.error("Unable to initialize LbManager", e);
+            System.out.println("Unable to initialize LbManager" + e.getMessage());
             return;
         }
         

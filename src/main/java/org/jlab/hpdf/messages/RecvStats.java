@@ -1,5 +1,8 @@
 package org.jlab.hpdf.messages;
 
+/**
+ * This class is only instantiated in the native JNI wrapper when a RecvStats for Reassembler needs to be passed to Java
+ */
 public class RecvStats {
     public long enqueueLoss;
     public long eventSuccess;
