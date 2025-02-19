@@ -38,6 +38,9 @@ public class EjfatURI{
         SESSION
     }
     
+    /**
+     * This stores the pointer to the native e2sar::EJFATUri created
+     */
     private long nativeEjfatURI;
 
     /**

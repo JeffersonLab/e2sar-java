@@ -103,7 +103,7 @@ JNIEXPORT void JNICALL Java_org_jlab_hpdf_Segmenter_sendEventDirect
     }
   }
 
-void freeGloablByteBuffer(boost::any a){
+void freeGlobalByteBuffer(boost::any a){
   std::pair<JNIEnv *, jobject> globalByteBuffer = boost::any_cast<std::pair<JNIEnv *, jobject>>(a);
   JNIEnv *env = globalByteBuffer.first;
   jobject jGlobalByteBuffer = globalByteBuffer.second;
@@ -117,7 +117,7 @@ JNIEXPORT void JNICALL Java_org_jlab_hpdf_Segmenter_addToSendQueueDirect
 
     //Need a GlobalReference so that the JVM does not deallocate this object
     jobject jGlobalByteBufferRef = env->NewGlobalRef(jByteBuffer);
-    auto res = segmenter->addToSendQueue(event, jSize, jEventNumber, jDataId, jEntropy, &freeGloablByteBuffer, std::make_pair(env, jGlobalByteBufferRef));
+    auto res = segmenter->addToSendQueue(event, jSize, jEventNumber, jDataId, jEntropy, &freeGlobalByteBuffer, std::make_pair(env, jGlobalByteBufferRef));
     if(res.has_error()){
       throwJavaException(env, res.error().message());
     }
