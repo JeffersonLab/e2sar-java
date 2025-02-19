@@ -17,13 +17,14 @@ Both components are dependent on each other to function, the high level details 
 
 ### Building jnie2sar.so
 
-`PKG_CONFIG_PATH` needs to be set for cmake to find `libe2sar`. If the relase .deb or .rpm is installed the default install location will be `/usr/local/lib:/usr/local/lib64`. Similary `LD_LIBRARY_PATH` would need to be set for linking.
+`PKG_CONFIG_PATH` needs to be set for cmake to find `libe2sar`. If the relase .deb or .rpm is installed the default install location will be `/usr/local/lib:/usr/local/lib64`. Similary `LIBRARY_PATH` needs to be set for compilation and `LD_LIBRARY_PATH` would need to be set for linking.
 
 `JAVA_HOME` also needs to be set to find the JNI header files.
 
 Use the follwing commands to set up environment assuming default installation location of E2sar.deb/rpm
 
 ```bash
+$ export LIBRARY_PATH=/usr/local/lib:/usr/local/lib64 
 $ export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64  
 $ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig
 $ export JAVA_HOME=/usr/lib/jvm/java-1.17.0-openjdk-amd64
