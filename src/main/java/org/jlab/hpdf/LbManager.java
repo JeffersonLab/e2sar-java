@@ -47,7 +47,7 @@ public class LbManager {
      * @param validateServer if false, skip server certificate validation (useful for self-signed testing)
      * @param useHostAddress even if hostname is provided, use host address as resolved by URI object (with preference for 
      * IPv4 by default or for IPv6 if explicitly requested)
-     * @param sslCredOpts ontaining server root certs, client key and client cert (in this order) 
+     * @param sslCredOpts obtaining server root certs, client key and client cert (in this order) 
      * use of SSL/TLS is governed by the URI scheme ('ejfat' vs 'ejfats').
      * @param sslCredOptsFromFile if true, assumes the contents of sslCredentialOptions are filepaths to the certificates
      * @throws E2sarNativeException - If native e2sar::LBManager could not be created
