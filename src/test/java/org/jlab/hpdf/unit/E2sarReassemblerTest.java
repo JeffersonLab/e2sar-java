@@ -2,6 +2,7 @@ package org.jlab.hpdf.unit;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.lang.StackWalker.Option;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -133,7 +134,12 @@ public class E2sarReassemblerTest {
         assert(sendStats.eventDatagramErrCount == 0);
 
         for(int i = 0; i < 5; i++){
-            Optional<ReassembledEvent> event = reas.getEvent();
+            Optional<ReassembledEvent> event = Optional.empty();
+            try {
+                event = reas.getEvent();
+            } catch (Exception e) {
+                System.out.println("There was an error getting event" + e.getMessage());
+            }
             if(!event.isPresent()){
                 System.out.println("No message received, continuing");
             }
@@ -278,7 +284,13 @@ public class E2sarReassemblerTest {
         assert(sendStats.eventDatagramErrCount == 0);
 
         for(int i = 0; i < 5; i++){
-            Optional<ReassembledEvent> event = reas.getEvent();
+            Optional<ReassembledEvent> event = Optional.empty();
+            try{
+                event = reas.getEvent(); 
+            }
+            catch(E2sarNativeException e){
+                System.out.println("There was an error getting event" + e.getMessage());
+            }
             if(!event.isPresent()){
                 System.out.println("No message received, continuing");
             }

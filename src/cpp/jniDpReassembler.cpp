@@ -248,10 +248,13 @@ JNIEXPORT jobject JNICALL Java_org_jlab_hpdf_Reassembler_getEvent
     u_int16_t recDataId;
 
     auto res = reassembler->getEvent(&eventBuf, &eventLen, &eventNum, &recDataId);
-    if(res.has_error()){
+    if(res.value() == -1){
         jclass optionalClass = env->FindClass("java/util/Optional");
         jmethodID emptyMethod = env->GetStaticMethodID(optionalClass, "empty", "()Ljava/util/Optional;");
         return env->CallStaticObjectMethod(optionalClass, emptyMethod);
+    }
+    else if (res.has_error()){
+      throwJavaException(env, res.error().message());
     }
 
     jobject jDirectBuffer = createDirectByteBuffer(env, eventBuf, eventLen);
@@ -268,10 +271,13 @@ JNIEXPORT jobject JNICALL Java_org_jlab_hpdf_Reassembler_recvEvent
     u_int16_t recDataId;
 
     auto res = reassembler->recvEvent(&eventBuf, &eventLen, &eventNum, &recDataId, jWaitTime);
-    if(res.has_error() || res.value() == -1){
+    if(res.value() == -1){
         jclass optionalClass = env->FindClass("java/util/Optional");
         jmethodID emptyMethod = env->GetStaticMethodID(optionalClass, "empty", "()Ljava/util/Optional;");
         return env->CallStaticObjectMethod(optionalClass, emptyMethod);
+    }
+    else if (res.has_error()){
+      throwJavaException(env, res.error().message());
     }
     
     jobject jDirectBuffer = createDirectByteBuffer(env, eventBuf, eventLen);

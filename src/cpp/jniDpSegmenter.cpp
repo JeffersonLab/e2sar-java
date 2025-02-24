@@ -123,6 +123,39 @@ JNIEXPORT void JNICALL Java_org_jlab_hpdf_Segmenter_addToSendQueueDirect
     }
   }
 
+JNIEXPORT void JNICALL Java_org_jlab_hpdf_Segmenter_sendEvent
+  (JNIEnv *env, jobject jSegmenter, jlong jNativeSegmenter, jbyteArray jEvent, jint jSize, jlong jEventNumber, jint jDataId, jint jEntropy){
+    e2sar::Segmenter* segmenter = reinterpret_cast<e2sar::Segmenter*>(jNativeSegmenter);
+
+    u_int8_t* buffer = new u_int8_t[jSize];
+    env->GetByteArrayRegion(jEvent, 0, jSize, reinterpret_cast<jbyte*>(buffer));
+
+    auto res = segmenter->sendEvent(buffer, jSize, jEventNumber, jDataId, jEntropy);
+    delete[] buffer;
+    if(res.has_error()){
+      throwJavaException(env, res.error().message());
+    }
+  }
+
+void freeBuffer(boost::any a){
+  auto p = boost::any_cast<u_int8_t*>(a);
+  delete[] p;
+}
+
+JNIEXPORT void JNICALL Java_org_jlab_hpdf_Segmenter_addToSendQueue
+  (JNIEnv *env, jobject jSegmenter, jlong jNativeSegmenter, jbyteArray jEvent, jint jSize, jlong jEventNumber, jint jDataId, jint jEntropy){
+    e2sar::Segmenter* segmenter = reinterpret_cast<e2sar::Segmenter*>(jNativeSegmenter);
+
+    u_int8_t* buffer = new u_int8_t[jSize];
+    env->GetByteArrayRegion(jEvent, 0, jSize, reinterpret_cast<jbyte*>(buffer));
+
+    auto res = segmenter->addToSendQueue(buffer, jSize, jEventNumber, jDataId, jEntropy, &freeBuffer, buffer);
+    if(res.has_error()){
+      throwJavaException(env, res.error().message());
+    }
+  }
+
+
 JNIEXPORT jint JNICALL Java_org_jlab_hpdf_Segmenter_getMTU
   (JNIEnv *env, jobject jSegmenter, jlong jNativeSegmenter){
 

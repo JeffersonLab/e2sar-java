@@ -15,6 +15,15 @@ extern "C" {
  */
 JNIEXPORT jstring JNICALL Java_org_jlab_hpdf_E2sarUtil_getE2sarVersion
   (JNIEnv *, jclass);
+
+/*
+ * Class:     org_jlab_hpdf_E2sarUtil
+ * Method:    getTotalHeaderLength
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_org_jlab_hpdf_E2sarUtil_getTotalHeaderLength
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif  

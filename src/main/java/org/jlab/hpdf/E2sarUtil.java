@@ -14,5 +14,11 @@ public class E2sarUtil{
      * @return String - E2sarVersion
      */
     public static native String getE2sarVersion();
+
+    /**
+     * Static call to get e2sar::TOTAL_HDR_LENGTH form e2sarHeaders.hpp
+     * @return total header length
+     */
+    public static native long getTotalHeaderLength();
     
 }
