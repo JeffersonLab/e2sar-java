@@ -445,40 +445,39 @@ public class E2sarPerf {
                         System.out.println("Unable to add senders: " + e.getMessage());
                         System.exit(-1);
                     }
-
-                    if(iniFile.length() > 0){
-                        try {
-                            System.out.println("Loading SegmenterFlags from " + iniFile);
-                            seg = new Segmenter(uri, dataId, eventSourceId, iniFile);
-                        } catch (E2sarNativeException e) {
-                            System.out.println("Unable to init segmenter: " + e.getMessage());
-                            System.exit(-1);
-                        }
+                }
+                if(iniFile.length() > 0){
+                    try {
+                        System.out.println("Loading SegmenterFlags from " + iniFile);
+                        seg = new Segmenter(uri, dataId, eventSourceId, iniFile);
+                    } catch (E2sarNativeException e) {
+                        System.out.println("Unable to init segmenter: " + e.getMessage());
+                        System.exit(-1);
                     }
-                    else{
-                        SegmenterFlags sFlags = new SegmenterFlags();  
-                        sFlags.useCP = withCP; 
-                        sFlags.mtu = mtu;
-                        sFlags.sndSocketBufSize = sockBufSize;
-                        sFlags.numSendSockets = numSockets;
-                        sFlags.zeroRate = zeroRate;
-                        sFlags.usecAsEventNum = usecAsEventNum;
-                        try {
-                            seg = new Segmenter(uri, dataId, eventSourceId, sFlags);
-                        } catch (E2sarNativeException e) {
-                            System.out.println("Unable to init segmenter: " + e.getMessage());
-                            System.exit(-1);
-                        }
-                        System.out.println("Control plane                " + (sFlags.useCP ? "ON" : "OFF") );
-                        System.out.println("Event rate reporting in Sync " + (sFlags.zeroRate ? "OFF" : "ON"));
-                        System.out.println("Using usecs as event numbers " + (sFlags.usecAsEventNum ? "ON" : "OFF") );
-                        if(sFlags.useCP)
-                            System.out.println("*** Make sure the LB has been reserved and the URI reflects the reserved instance information.");
-                        else
-                            System.out.println("*** Make sure the URI reflects proper data address, other parts are ignored.");
-                        
-                        sendEvents(startingEventNum, numEvents, eventBufferSize, rateGbps, isDirect);
+                }
+                else{
+                    SegmenterFlags sFlags = new SegmenterFlags();  
+                    sFlags.useCP = withCP; 
+                    sFlags.mtu = mtu;
+                    sFlags.sndSocketBufSize = sockBufSize;
+                    sFlags.numSendSockets = numSockets;
+                    sFlags.zeroRate = zeroRate;
+                    sFlags.usecAsEventNum = usecAsEventNum;
+                    try {
+                        seg = new Segmenter(uri, dataId, eventSourceId, sFlags);
+                    } catch (E2sarNativeException e) {
+                        System.out.println("Unable to init segmenter: " + e.getMessage());
+                        System.exit(-1);
                     }
+                    System.out.println("Control plane                " + (sFlags.useCP ? "ON" : "OFF") );
+                    System.out.println("Event rate reporting in Sync " + (sFlags.zeroRate ? "OFF" : "ON"));
+                    System.out.println("Using usecs as event numbers " + (sFlags.usecAsEventNum ? "ON" : "OFF") );
+                    if(sFlags.useCP)
+                        System.out.println("*** Make sure the LB has been reserved and the URI reflects the reserved instance information.");
+                    else
+                        System.out.println("*** Make sure the URI reflects proper data address, other parts are ignored.");
+                    
+                    sendEvents(startingEventNum, numEvents, eventBufferSize, rateGbps, isDirect);
                 }
             }
             else if(cmd.hasOption("recv")){
