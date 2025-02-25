@@ -190,11 +190,11 @@ public class E2sarPerf {
                 System.out.println("Error adding item to send queue: " + e.getMessage());
             }
             
-            
-            while((System.nanoTime()/1000) < until){
-                LockSupport.parkNanos(1_000);//sleep for 1 microsecond and yield thread. Will cause deadlocks if this is not here
-                //Since microsecond sleep is not available in java this is the current option
-            }
+            LockSupport.parkNanos((until-nowT) * 1000);
+            // while((System.nanoTime()/1000) < until){
+            //     LockSupport.parkNanos(1_000);//sleep for 1 microsecond and yield thread. Will cause deadlocks if this is not here
+            //     //Since microsecond sleep is not available in java this is the current option
+            // }
         }
         
         SendStats sendStats = seg.getSendStats();
