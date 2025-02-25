@@ -80,12 +80,12 @@ Since java only allows one main class in a jar, you have to explicitly set the c
 
 To run lbadm:
 ```java
-java -Djava.library.path="/usr/local/lib" -cp target/e2sar-java-0.0.1-jar-with-dependencies.jar Lbadm --help
+java -Djava.library.path="/usr/local/lib" -cp target/e2sar-java-0.0.1-jar-with-dependencies.jar org.jlab.hpdf.cli.Lbadm --help
 ```
 
 To run e2sar-perf:
 ```java
-java -Djava.library.path="/usr/local/lib" -cp target/e2sar-java-0.0.1-jar-with-dependencies.jar E2sarPerf --help
+java -Djava.library.path="/usr/local/lib" -cp target/e2sar-java-0.0.1-jar-with-dependencies.jar org.jlab.hpdf.cli.E2sarPerf --help
 ```
 
 

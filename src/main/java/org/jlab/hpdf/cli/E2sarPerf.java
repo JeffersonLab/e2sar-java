@@ -299,6 +299,7 @@ public class E2sarPerf {
 
         Options options = new Options();
 
+        options.addOption("h", "help", false, "Show this help message");
         options.addOption("s", "send", false,"send traffic");
         options.addOption("r", "recv", false,"receive traffic");
 
