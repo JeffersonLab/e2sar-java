@@ -204,6 +204,9 @@ public class E2sarPerf {
         }
 
         System.out.println("Completed, " + sendStats.eventDatagramCount + " frames sent, " + sendStats.eventDatagramErrCount + " errors");
+        if(sendStats.eventDatagramErrCount > 0){
+            System.out.println("Last E2Sar error encountered: " + sendStats.lastErrorNo);
+        }
     }
 
     private static void prepareToReceive(String hostname){
@@ -412,6 +415,8 @@ public class E2sarPerf {
         boolean preferHostAddr = (cmd.hasOption("ipv6") || cmd.hasOption("ipv4")) ? true : false;
         boolean validate = cmd.hasOption("novalidate") ? false: true;
         boolean isDirect = cmd.hasOption("indirect") ? false : true;
+
+        shutdownHook();//starting shutdown hook
 
         EjfatURI.Token tt = EjfatURI.Token.INSTANCE;
 
