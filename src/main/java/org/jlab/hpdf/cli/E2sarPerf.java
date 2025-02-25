@@ -8,6 +8,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.Options;
 
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.LockSupport;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
@@ -189,7 +190,11 @@ public class E2sarPerf {
                 System.out.println("Error adding item to send queue: " + e.getMessage());
             }
             
-            while((System.nanoTime()/1000) < until);
+            
+            while((System.nanoTime()/1000) < until){
+                LockSupport.parkNanos(1_000);//sleep for 1 microsecond and yield thread. Will cause deadlocks if this is not here
+                //Since microsecond sleep is not available in java this is the current option
+            }
         }
         
         SendStats sendStats = seg.getSendStats();
