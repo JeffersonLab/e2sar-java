@@ -64,6 +64,22 @@ JNIEXPORT void JNICALL Java_org_jlab_hpdf_Segmenter_addToSendQueueDirect
 
 /*
  * Class:     org_jlab_hpdf_Segmenter
+ * Method:    sendEvent
+ * Signature: (J[BIJII)V
+ */
+JNIEXPORT void JNICALL Java_org_jlab_hpdf_Segmenter_sendEvent
+  (JNIEnv *, jobject, jlong, jbyteArray, jint, jlong, jint, jint);
+
+/*
+ * Class:     org_jlab_hpdf_Segmenter
+ * Method:    addToSendQueue
+ * Signature: (J[BIJII)V
+ */
+JNIEXPORT void JNICALL Java_org_jlab_hpdf_Segmenter_addToSendQueue
+  (JNIEnv *, jobject, jlong, jbyteArray, jint, jlong, jint, jint);
+
+/*
+ * Class:     org_jlab_hpdf_Segmenter
  * Method:    getMTU
  * Signature: (J)I
  */

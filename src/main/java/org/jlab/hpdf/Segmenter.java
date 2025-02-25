@@ -120,6 +120,31 @@ public class Segmenter{
     private native void addToSendQueueDirect(long nativeSegmenter, ByteBuffer buffer, int capacity, long eventNumber, int dataId, int entropy) throws E2sarNativeException;
 
     /**
+     * Send immediately overriding event number. This function copies the byte[] in native code
+     * @param buffer - event buffer which is a byte[].
+     * @param eventNumber - override the internal event number (0 is default and will use the internal eventNumber)
+     * @param dataId - override the dataId (0 id default and will use the internal dataId passed in constructor)
+     * @param entropy - optional event entropy value (0 is default and random will be generated otherwise)
+     * @throws E2sarNativeException - If there is an error adding this event to the queue
+     */
+    public void sendEvent(byte[] buffer,long eventNumber, int dataId, int entropy) throws E2sarNativeException{
+        sendEvent(this.nativeSegmenter, buffer, buffer.length, eventNumber, dataId, entropy);
+    }
+    private native void sendEvent(long nativeSegmenter, byte[] buffer, int capacity, long eventNumber, int dataId, int entropy) throws E2sarNativeException;
+
+    /**
+     * Send immediately overriding event number. This function copies the byte[] in native code
+     * @param buffer - event buffer which is a byte[]
+     * @param eventNumber - override the internal event number (0 is default and will use the internal eventNumber)
+     * @param dataId - override the dataId (0 id default and will use the internal dataId passed in constructor)
+     * @param entropy - optional event entropy value (0 is default and random will be generated otherwise)
+     * @throws E2sarNativeException - If there is an error sending this event to LB
+     */
+    public void addToSendQueue(byte[] buffer,long eventNumber, int dataId, int entropy) throws E2sarNativeException{
+        addToSendQueue(this.nativeSegmenter, buffer, buffer.length, eventNumber, dataId, entropy);
+    }
+    private native void addToSendQueue(long nativeSegmenter, byte[] buffer, int capacity, long eventNumber, int dataId, int entropy) throws E2sarNativeException;
+    /**
      * Get the MTU currently in use by segmenter
      * @return the MTU as int
      */

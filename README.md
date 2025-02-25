@@ -75,6 +75,20 @@ There is a [jupyter notebook](scripts/notebooks/EJFAT/E2SAR-release-tester.ipynb
 Javadocs can be created using the following command
 `mvn clean javadoc:javadoc`
 
+## Running lbadm/e2sar-perf
+Since java only allows one main class in a jar, you have to explicitly set the class when running these CLI applications.
+
+To run lbadm:
+```java
+java -Djava.library.path="/usr/local/lib" -cp target/e2sar-java-0.0.1-jar-with-dependencies.jar org.jlab.hpdf.cli.Lbadm --help
+```
+
+To run e2sar-perf:
+```java
+java -Djava.library.path="/usr/local/lib" -cp target/e2sar-java-0.0.1-jar-with-dependencies.jar org.jlab.hpdf.cli.E2sarPerf --help
+```
+
+
 ## Related information
 - [E2SAR](https://github.com/JeffersonLab/E2SAR)
 - [UDPLBd repo](https://github.com/esnet/udplbd) (aka Control Plane)

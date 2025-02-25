@@ -184,11 +184,12 @@ public class Reassembler {
 
     /**
      * A non-blocking call to get an assembled event off a reassembled event queue
-     * @return if an error occurs or if there's no event available Optional.empty() is returned otherwise the ReassembledEvent
+     * @return if there's no event available Optional.empty() is returned otherwise the ReassembledEvent
      * Need to call freeDirectBytebBuffer(ReassembledEvent) to free the buffer created 
+     * @throws E2sarNativeException - If there is an error when getting an event
      */
-    public Optional<ReassembledEvent> getEvent(){ return getEvent(nativeReassembler);}
-    private native Optional<ReassembledEvent> getEvent(long nativeReassembler);
+    public Optional<ReassembledEvent> getEvent() throws E2sarNativeException{ return getEvent(nativeReassembler);}
+    private native Optional<ReassembledEvent> getEvent(long nativeReassembler) throws E2sarNativeException;
 
     /**
      * Blocking variant of getEvent() 
@@ -196,8 +197,8 @@ public class Reassembler {
      * @return if an error occurs or if there's no event available Optional.empty() is returned otherwise the ReassembledEvent
      * Need to call freeDirectBytebBuffer(ReassembledEvent) to free the buffer created 
      */
-    public Optional<ReassembledEvent> recvEvent(long waitMs) { return recvEvent(nativeReassembler, waitMs);}
-    private native Optional<ReassembledEvent> recvEvent(long nativeReassembler, long waitMs);
+    public Optional<ReassembledEvent> recvEvent(long waitMs) throws E2sarNativeException { return recvEvent(nativeReassembler, waitMs);}
+    private native Optional<ReassembledEvent> recvEvent(long nativeReassembler, long waitMs) throws E2sarNativeException;
 
     /**
      * Get an Instance of RecvStats containing - enqueueLoss, eventSuccess, lastErrno, grpcErrCnt, dataErrCnt, lastE2SARError
